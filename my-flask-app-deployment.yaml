@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-flask-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: my-flask-app
+  template:
+    metadata:
+      labels:
+        app: my-flask-app
+    spec:
+      containers:
+      - name: my-flask-app
+        image: my-api-flask-app:latest
+        imagePullPolicy: Never
+        env:
+          - name: DB_HOST
+            value: "mysql-service"
+          - name: DB_NAME
+            value: "localbites"  
+          - name: DB_USER
+            value: "root"
+          - name: DB_PASSWORD
+            value: "my-secret-pw"
+          - name: DB_POOLNAME
+            value: "localbites_pools"
+          - name: POOL_SIZE
+            value: "10"
+        ports:
+        - containerPort: 5000
