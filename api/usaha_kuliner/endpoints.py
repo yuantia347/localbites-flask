@@ -67,8 +67,8 @@ def create_usaha():
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO usaha_kuliner 
-            (user_id, nama_usaha, deskripsi, lokasi, kontak, foto, jam_buka)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            (user_id, nama_usaha, deskripsi, lokasi, kontak, foto, jam_buka, status_approve)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, 1)
         """, (user_id, nama_usaha, deskripsi, lokasi, kontak, foto, jam_buka))
         conn.commit()
         return jsonify({"status": "success", "message": "Usaha berhasil ditambahkan"}), 201
