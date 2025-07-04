@@ -8,6 +8,7 @@ from flasgger import Swagger
 # Import blueprint endpoint
 from api.auth.endpoints import auth_endpoints
 from api.resep_masakan.endpoints import resep_endpoints
+from api.usaha_kuliner.endpoints import usaha_endpoints
 from api.rekomendasi_sosmed.endpoints import rekomendasi_endpoints
 from api.data_protected.endpoints import protected_endpoints
 from static.static_file_server import static_file_server
@@ -30,6 +31,7 @@ swagger = Swagger(app)
 # Registrasi blueprint
 app.register_blueprint(auth_endpoints, url_prefix="/api/v1/auth")
 app.register_blueprint(resep_endpoints, url_prefix="/api/v1/resep")
+app.register_blueprint(usaha_endpoints, url_prefix="/api/v1/usaha")
 app.register_blueprint(protected_endpoints, url_prefix="/api/v1/protected")
 app.register_blueprint(static_file_server, url_prefix="/img")
 app.register_blueprint(rekomendasi_endpoints, url_prefix='/api/v1/rekomendasi')
