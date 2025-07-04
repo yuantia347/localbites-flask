@@ -8,12 +8,8 @@ from flasgger import Swagger
 # Import blueprint endpoint
 from api.auth.endpoints import auth_endpoints
 from api.resep_masakan.endpoints import resep_endpoints
-<<<<<<< HEAD
 from api.usaha_kuliner.endpoints import usaha_endpoints
-from api.rekomendasi_sosmed.endpoints import rekomendasi_endpoints
-=======
 from api.rekomendasi_sosmed.endpoints import sosmed_endpoints
->>>>>>> 0917a1f54679c1c01bae0d8fe36678fe9433d63b
 from api.data_protected.endpoints import protected_endpoints
 from static.static_file_server import static_file_server
 

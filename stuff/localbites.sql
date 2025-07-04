@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 04, 2025 at 03:10 PM
+-- Generation Time: Jul 04, 2025 at 03:43 PM
 -- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- PHP Version: 8.2.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `rekomendasi_sosmed` (
-  `id_sosmed` int NOT NULL,
+  `id` int NOT NULL,
   `judul` varchar(255) NOT NULL,
   `link` text NOT NULL,
-  `deskripsi` text NOT NULL,
+  `deskripsi` text,
   `thumbnail_url` text,
-  `created_by` int NOT NULL,
+  `created_by` int DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -43,19 +43,11 @@ CREATE TABLE `rekomendasi_sosmed` (
 -- Dumping data for table `rekomendasi_sosmed`
 --
 
-INSERT INTO `rekomendasi_sosmed` (`id_sosmed`, `judul`, `link`, `deskripsi`, `thumbnail_url`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Tips UMKM 2024', 'https://www.instagram.com/reel/C6b3slQyOk3/', 'desk', 'https://www.instagram.com/reel/C6b3slQyOk3/', 9, '2025-07-04 12:14:01', '2025-07-04 12:19:39', '2025-07-04 12:19:39'),
-(2, 'Tips Branding Produk UMKM', 'https://www.instagram.com/reel/C6b3slQyOk3/', 'Konten dari UMKM Indonesia yang membahas strategi membangun brand produk lokal agar lebih dikenal dan dipercaya konsumen.', 'https://i.imgur.com/6XjF7kR.jpeg', 9, '2025-07-04 12:19:51', '2025-07-04 13:41:56', '2025-07-04 13:41:56'),
-(3, 'Tips Branding Produk UMKM', 'https://www.instagram.com/reel/C6b3slQyOk3/', 'Konten dari UMKM Indonesia yang membahas strategi membangun brand produk lokal agar lebih dikenal dan dipercaya konsumen.', 'https://i.imgur.com/6XjF7kR.jpeg', 9, '2025-07-04 20:36:03', '2025-07-04 20:36:39', '2025-07-04 20:36:39'),
-(4, 'Kucing Goreng', 'https://youtu.be/cWWjANOisLo?si=AX5OUuXeC75oMp2z', 'aaaa', 'https://via.placeholder.com/320x180.png?text=Thumbnail', 9, '2025-07-04 20:55:32', '2025-07-04 21:42:52', '2025-07-04 21:42:52'),
-(5, 'Ayam Bakar', 'https://youtu.be/cWWjANOisLo?si=AX5OUuXeC75oMp2z', 'aaaaaaa', 'https://via.placeholder.com/320x180.png?text=Thumbnail', 9, '2025-07-04 20:55:54', '2025-07-04 21:41:26', '2025-07-04 21:41:26'),
-(6, 'nasi', 'https://youtu.be/cWWjANOisLo?si=AX5OUuXeC75oMp2z', 'aaaaaaa', 'https://img.youtube.com/vi/cWWjANOisLo/hqdefault.jpg', 9, '2025-07-04 21:09:20', NULL, NULL),
-(7, 'test ig', 'https://www.instagram.com/reel/DLrM_IHvaVJ/?utm_source=ig_web_copy_link', 'aaaaaa', 'https://via.placeholder.com/320x180.png?text=Thumbnail', 9, '2025-07-04 21:14:55', '2025-07-04 21:42:54', '2025-07-04 21:42:54'),
-(8, 'nasi', 'https://youtu.be/cWWjANOisLo?si=AX5OUuXeC75oMp2z', 'aaaaaaaaa', 'https://img.youtube.com/vi/cWWjANOisLo/hqdefault.jpg', 9, '2025-07-04 21:42:39', '2025-07-04 21:47:50', '2025-07-04 21:47:50'),
-(9, 'Kucing Goreng', 'https://youtu.be/cWWjANOisLo?si=-YXn7ZScZHdOw1Eo', 'aaaaaa', 'https://img.youtube.com/vi/cWWjANOisLo/hqdefault.jpg', 9, '2025-07-04 21:46:13', '2025-07-04 21:47:51', '2025-07-04 21:47:51'),
-(10, 'nasi', 'https://youtu.be/cWWjANOisLo?si=AX5OUuXeC75oMp2z', 'aaaaaaa', 'https://img.youtube.com/vi/cWWjANOisLo/hqdefault.jpg', 9, '2025-07-04 21:46:25', '2025-07-04 22:58:29', '2025-07-04 22:58:29'),
-(11, 'nasi', 'https://youtu.be/cWWjANOisLo?si=AX5OUuXeC75oMp2z', 'aaaaaaaaaa', 'https://img.youtube.com/vi/cWWjANOisLo/hqdefault.jpg', 9, '2025-07-04 22:22:56', NULL, NULL),
-(12, 'nasi', 'https://youtu.be/cWWjANOisLo?si=AX5OUuXeC75oMp2z', 'aaaaaaaa', 'https://img.youtube.com/vi/cWWjANOisLo/hqdefault.jpg', 9, '2025-07-04 22:29:50', '2025-07-04 22:55:18', '2025-07-04 22:55:18');
+INSERT INTO `rekomendasi_sosmed` (`id`, `judul`, `link`, `deskripsi`, `thumbnail_url`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Warung Segara Mas Singaraja', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 'Video dari akun @wrsegaramas; menu makanan viral.', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 1, '2025-07-03 14:16:43', '2025-07-03 14:16:43', NULL),
+(2, 'nasi kucing', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 'des', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 1, '2025-07-03 15:59:54', '2025-07-03 15:59:54', NULL),
+(3, 'ayam', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 'ayam\n', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 1, '2025-07-03 16:03:06', '2025-07-03 16:03:06', NULL),
+(4, 'Warung Segara Mas Singaraja', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 'nnm,', 'https://www.tiktok.com/@wrsegaramas/video/7502754526269590839', 1, '2025-07-03 21:34:29', '2025-07-03 21:34:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -89,6 +81,34 @@ INSERT INTO `resep_masakan` (`id`, `user_id`, `judul`, `bahan`, `langkah`, `kate
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `usaha_kuliner`
+--
+
+CREATE TABLE `usaha_kuliner` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` int NOT NULL,
+  `nama_usaha` varchar(150) NOT NULL,
+  `deskripsi` text,
+  `lokasi` varchar(255) DEFAULT NULL,
+  `kontak` varchar(100) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `jam_buka` varchar(50) DEFAULT NULL,
+  `status_approve` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `usaha_kuliner`
+--
+
+INSERT INTO `usaha_kuliner` (`id`, `user_id`, `nama_usaha`, `deskripsi`, `lokasi`, `kontak`, `foto`, `jam_buka`, `status_approve`, `created_at`, `updated_at`) VALUES
+(1, 9, 'test', 'test deskripsi', 'test lokasi', '081546787678', 'https://searchengineland.com/wp-content/seloads/2015/12/google-amp-fast-speed-travel-ss-1920.jpg', '09.00', 1, '2025-07-04 15:02:59', '2025-07-04 15:02:59'),
+(2, 9, 'Test 2', 'test deskripsi 2', 'test lokasi 2', '2341561819', NULL, '01.00', 1, '2025-07-04 15:05:37', '2025-07-04 15:05:37');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -114,8 +134,7 @@ INSERT INTO `users` (`id_users`, `username`, `password`, `created_at`, `updated_
 (6, 'andini', '$2b$12$IOT2nYdPTeIddA/7ueXe1eVSS3AiHLilX2iRu8XIe0nULZyG9zb06', '2025-06-28 05:51:09', '2025-06-28 05:51:09', NULL),
 (7, '12126', '$2b$12$qgkkAHSLH46MM0JWfdtlR.lY.DIJtoNYY.npNEqwvmZkcbve3HHb.', '2025-06-29 03:41:45', '2025-06-29 03:41:45', NULL),
 (8, 'nazwakayla', '$2b$12$VedE00RyuAFt6hHR0nJIVek97ztqvr5WeiAXAP27Pwmw.SA19sru2', '2025-07-04 02:39:15', '2025-07-04 02:39:15', NULL),
-(9, 'randika', '$2b$12$izKv0XJhWuO8vG4a3q1Iee5Q6xpuZkePmXr6KHUTEPDOd02mNJR.G', '2025-07-04 03:28:13', '2025-07-04 03:28:13', NULL),
-(10, 'testuser', '$2b$12$c6Cq5crWFPS3na6yL5mWdOvPlsq.ch2XvB2ZR6zBzsTCFGteKAxim', '2025-07-04 15:04:09', '2025-07-04 15:04:09', NULL);
+(9, 'jean_doe', '$2b$12$UgnU0a6IFYRE/c2DY0O6Nefn5FzDY/mJFZyxePs9qLxHVr26HSq9.', '2025-07-04 12:35:56', '2025-07-04 12:35:56', NULL);
 
 --
 -- Indexes for dumped tables
@@ -125,7 +144,7 @@ INSERT INTO `users` (`id_users`, `username`, `password`, `created_at`, `updated_
 -- Indexes for table `rekomendasi_sosmed`
 --
 ALTER TABLE `rekomendasi_sosmed`
-  ADD PRIMARY KEY (`id_sosmed`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `created_by` (`created_by`);
 
 --
@@ -134,6 +153,13 @@ ALTER TABLE `rekomendasi_sosmed`
 ALTER TABLE `resep_masakan`
   ADD PRIMARY KEY (`id`),
   ADD KEY `resep_masakan_ibfk_1` (`user_id`);
+
+--
+-- Indexes for table `usaha_kuliner`
+--
+ALTER TABLE `usaha_kuliner`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
@@ -150,19 +176,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `rekomendasi_sosmed`
 --
 ALTER TABLE `rekomendasi_sosmed`
-  MODIFY `id_sosmed` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `resep_masakan`
 --
 ALTER TABLE `resep_masakan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `usaha_kuliner`
+--
+ALTER TABLE `usaha_kuliner`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
