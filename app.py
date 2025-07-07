@@ -12,6 +12,7 @@ from api.usaha_kuliner.endpoints import usaha_endpoints
 from api.rekomendasi_sosmed.endpoints import sosmed_endpoints
 from api.data_protected.endpoints import protected_endpoints
 from static.static_file_server import static_file_server
+from api.favorit.endpoints import favorit_endpoints
 
 # Load .env file
 load_dotenv()
@@ -35,6 +36,7 @@ app.register_blueprint(usaha_endpoints, url_prefix="/api/v1/usaha")
 app.register_blueprint(protected_endpoints, url_prefix="/api/v1/protected")
 app.register_blueprint(static_file_server, url_prefix="/img")
 app.register_blueprint(sosmed_endpoints, url_prefix='/api/v1/sosmed')
+app.register_blueprint(favorit_endpoints, url_prefix='/api/favorit')
 
 # Root route
 @app.route('/')

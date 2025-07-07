@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify 
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from helper.db_helper import get_connection
 from datetime import datetime
@@ -29,7 +29,7 @@ def detail_usaha(usaha_id):
     try:
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM usaha_kuliner WHERE id = %s", (usaha_id,))
+        cursor.execute("SELECT * FROM usaha_kuliner WHERE id_usaha = %s", (usaha_id,))
         usaha = cursor.fetchone()
 
         if not usaha:
@@ -53,7 +53,7 @@ def create_usaha():
 
     data = request.form or request.json
     nama_usaha = data.get("nama_usaha")
-    deskripsi = data.get("deskripsi", "")
+    menu = data.get("menu", "")
     lokasi = data.get("lokasi", "")
     kontak = data.get("kontak", "")
     foto = data.get("foto", "")
@@ -67,9 +67,9 @@ def create_usaha():
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO usaha_kuliner 
-            (user_id, nama_usaha, deskripsi, lokasi, kontak, foto, jam_buka, status_approve)
+            (user_id, nama_usaha, menu, lokasi, kontak, foto, jam_buka, status_approve)
             VALUES (%s, %s, %s, %s, %s, %s, %s, 1)
-        """, (user_id, nama_usaha, deskripsi, lokasi, kontak, foto, jam_buka))
+        """, (user_id, nama_usaha, menu, lokasi, kontak, foto, jam_buka))
         conn.commit()
         return jsonify({"status": "success", "message": "Usaha berhasil ditambahkan"}), 201
     except Exception as e:
@@ -89,7 +89,7 @@ def update_usaha(usaha_id):
 
     data = request.form or request.json
     nama_usaha = data.get("nama_usaha")
-    deskripsi = data.get("deskripsi", "")
+    menu = data.get("menu", "")
     lokasi = data.get("lokasi", "")
     kontak = data.get("kontak", "")
     foto = data.get("foto", "")
@@ -100,7 +100,7 @@ def update_usaha(usaha_id):
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT user_id FROM usaha_kuliner WHERE id = %s", (usaha_id,))
+    cursor.execute("SELECT user_id FROM usaha_kuliner WHERE id_usaha = %s", (usaha_id,))
     usaha = cursor.fetchone()
 
     if not usaha or int(usaha["user_id"]) != int(user_id):
@@ -109,10 +109,10 @@ def update_usaha(usaha_id):
     try:
         cursor.execute("""
             UPDATE usaha_kuliner SET 
-            nama_usaha=%s, deskripsi=%s, lokasi=%s, kontak=%s,
+            nama_usaha=%s, menu=%s, lokasi=%s, kontak=%s,
             foto=%s, jam_buka=%s, updated_at=NOW()
-            WHERE id=%s
-        """, (nama_usaha, deskripsi, lokasi, kontak, foto, jam_buka, usaha_id))
+            WHERE id_usaha=%s
+        """, (nama_usaha, menu, lokasi, kontak, foto, jam_buka, usaha_id))
         conn.commit()
         return jsonify({"status": "success", "message": "Usaha berhasil diperbarui"}), 200
     except Exception as e:
@@ -132,14 +132,14 @@ def delete_usaha(usaha_id):
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT user_id FROM usaha_kuliner WHERE id = %s", (usaha_id,))
+    cursor.execute("SELECT user_id FROM usaha_kuliner WHERE id_usaha = %s", (usaha_id,))
     usaha = cursor.fetchone()
 
     if not usaha or int(usaha["user_id"]) != int(user_id):
         return jsonify({"status": "error", "message": "Tidak diizinkan"}), 403
 
     try:
-        cursor.execute("DELETE FROM usaha_kuliner WHERE id = %s", (usaha_id,))
+        cursor.execute("DELETE FROM usaha_kuliner WHERE id_usaha = %s", (usaha_id,))
         conn.commit()
         return jsonify({"status": "success", "message": "Usaha berhasil dihapus"}), 200
     except Exception as e:

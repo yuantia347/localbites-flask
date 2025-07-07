@@ -23,7 +23,6 @@ def read_sosmed():
             SELECT rs.*, u.username 
             FROM rekomendasi_sosmed rs
             JOIN users u ON rs.created_by = u.id_users
-            WHERE rs.deleted_at IS NULL
         """)
         results = cursor.fetchall()
         return jsonify({"status": "success", "data": results}), 200
@@ -42,7 +41,7 @@ def create_sosmed():
 
     current_user = get_jwt_identity()
 
-    # ✅ Ambil dari FormData
+    # Ambil dari FormData
     judul = request.form.get("judul")
     link = request.form.get("link")
     deskripsi = request.form.get("deskripsi")
@@ -84,7 +83,7 @@ def update_sosmed(id_sosmed):
     if not result or int(result["created_by"]) != int(current_user):
         return jsonify({"status": "error", "message": "Tidak diizinkan"}), 403
 
-    # ✅ Ambil dari FormData
+    # Ambil dari FormData
     judul = request.form.get("judul")
     link = request.form.get("link")
     deskripsi = request.form.get("deskripsi")
@@ -107,7 +106,7 @@ def update_sosmed(id_sosmed):
         cursor.close()
         connection.close()
 
-# DELETE
+# DELETE (Hard Delete)
 @sosmed_endpoints.route('/delete/<int:id_sosmed>', methods=['DELETE', 'OPTIONS'])
 @jwt_required()
 def delete_sosmed(id_sosmed):
@@ -125,7 +124,7 @@ def delete_sosmed(id_sosmed):
         return jsonify({"status": "error", "message": "Tidak diizinkan"}), 403
 
     try:
-        cursor.execute("UPDATE rekomendasi_sosmed SET deleted_at = NOW() WHERE id_sosmed = %s", (id_sosmed,))
+        cursor.execute("DELETE FROM rekomendasi_sosmed WHERE id_sosmed = %s", (id_sosmed,))
         connection.commit()
         return jsonify({"status": "success", "message": "Rekomendasi berhasil dihapus"}), 200
     except Exception as e:
